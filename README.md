@@ -1,26 +1,25 @@
 # GROM
-Version 1.0.1
-
-
-
+Version 1.0.3
 
 ## Description, Installation, and Usage
-
 
 ### DESCRIPTION
 
 GROM detects a comprehensive range of variants, SNVs, indels (deletion and insertion), structural variants (deletion, duplication, insertion, inversion, translocation), and CNVs (deletion and duplication).  GROM integrates paired-end, split-read, and read depth information.  GROM is optimally designed for whole genome sequencing (Illumina paired-end or single-end) data aligned with BWA mem and has been used to analyze exome and RNA-seq data.  GROM analysis is limited to SNVs and indels for exome and RNA-seq data.  GROM has been tested with BWA, however we recommend using BWA mem since GROM utilizes BWA mem's split-read mapping information.  When analyzing single-end data, GROM's insertion, inversion, and translocation output will be very limited.  This is a common limitation of single-end sequencing analysis not limited to GROM.  GROM is capable of duplicate read filtering.  Duplicate read filtering is similar to Picard's MarkDuplicates with an exception that GROM does not consider soft-clipping of a read's mate.  This is due to the speed optimization of GROM ("thunder" in Russian), and GROM is "lightning" fast completing analysis many times faster than leading algorithms. When run single-threaded, GROM requires approximately 13 GB RAM for a human genome.  Running GROM with 24-threads requires 128 GB RAM for a human genome.
 
-GROM outputs variant predictions in VCF-format.  Translocations are output to a separate file with the extension ".ctx.vcf" instead of ".vcf".
+GROM outputs variant predictions in VCF v4.2 format.  Single nucleotide variants (SNV), indels, structural variants (SV), and breakend replacements (BND) are each written to a separate vcf file with extensions of SNV.vcf, INDEL.vcf, SV.vcf, and BND.vcf respectively.
+
+GROM also outputs a file with a vcf.mean extension that contains aggregate data for a sample. The entries in the mean file are insert mean, median read length, insert minimum, insert maximum, and number of mapped reads. The QUAL scores in the vcf file are computed using the largest value for those variants with a start probability and end probability.
+
+GROM creates a gromconfig subdirectory in the user’s home directory and writes binomial probability tables as data files in the directory to save computational time.
+
+GROM writes a config file, config-v1.0.3.conf in the gromconfig directory. The file can be edited to change parameters but command-line parameters override config file parameters. To restore defaults, delete this file, and run GROM with no arguments. A config file with default values can be found in test directory of GROM release.
 
 GROM utilizes SAMtools (version 1.3.1 included with the GROM distribution) for accessing BAM files.  GROM has been successfully compiled and tested with:
 
-- CentOS 6.8; gcc 4.4.7
-- Ubuntu 14.04; gcc 4.4.8
-- Ubuntu 14.04; gcc 6.3
-
-
-
+CentOS 6.8; gcc 4.4.7
+Ubuntu 14.04; gcc 4.4.8
+Ubuntu 14.04; gcc 6.3
 
 
 ### INSTALLATION
@@ -32,10 +31,6 @@ If desired, GROM may be created from source code by running the following from t
 ```
 make
 ```
-
-
-
-
 
 ### USAGE
 
@@ -59,10 +54,10 @@ or if compiling from source code:
 ./bin/GROM -i ./test_data/tilapia_SAMD00023995_GL831235-1.bam -r ./test_data/oreNil2_GL831235-1.fa -o tilapia_SAMD00023995_GL831235-1_predictions.vcf
 ```
 
-Output file should be similar to results in ./test_data/test_outuput_tilapia_SAMD00023995_GL831235-1.vcf and ./test_data/test_outuput_tilapia_SAMD00023995_GL831235-1.ctx.vcf
-
-
+Output file should be similar to result files the ./test_data directory:
+tilapia_SAMD00023995_GL831235-1_predictions.BND.vcf, tilapia_SAMD00023995_GL831235-1_predictions.INDEL.vcf, tilapia_SAMD00023995_GL831235-1_predictions.SNV.vcf, tilapia_SAMD00023995_GL831235-1_predictions.SV.vcf, and tilapia_SAMD00023995_GL831235-1_predictions.vcf.mean 
 We recommend using the '-M' parameter to filter duplicate reads.  This will likely improve the variant prediction ability of GROM and often result in faster run times. Example:
+
 
 ```
 ./dist/GROM -M -i ./test_data/tilapia_SAMD00023995_GL831235-1.bam -r ./test_data/oreNil2_GL831235-1.fa -o tilapia_SAMD00023995_GL831235-1_predictions.vcf
@@ -101,7 +96,7 @@ Bases with phred quality score below the threshold are ignored.
 
 `-q low mapping quality threshold [default=20]`
 
-Reference bases with average read mapping quality below the threshold are analyzed separately.  For CNV detection, GROM creates separate GC distributions for reference bases in low quality regions and high quality regions. For other variants, GROM ignores low quality reads, except for providing read depth information used in probability statistics.
+Reference bases with average read mapping quality below the threshold are analyzed separately.  For CNV detection, GROM creates separate GC distributions for reference bases in low quality regions and high-quality regions. For other variants, GROM ignores low quality reads, except for providing read depth information used in probability statistics.
 
 
 `-v probability score threshold [default=0.001]`
@@ -121,7 +116,7 @@ CNVs with probability score above the threshold are filtered out.
 
 `-A sampling rate [default=2]`
 
-Only affects CNV detection. Controls window sampling rate.  For each window size, a sample distribution is created for each chromosome.  'sampling rate' indicates the number of windows sampled per maximum window size.  For instance if the sampling rate is 2 and the maximum window size is 10,000, then 2 sample windows will be taken for every 10,000 reference bases.
+Only affects CNV detection. Controls window sampling rate.  For each window size, a sample distribution is created for each chromosome.  'sampling rate' indicates the number of windows sampled per maximum window size.  For instance, if the sampling rate is 2 and the maximum window size is 10,000, then 2 sample windows will be taken for every 10,000 reference bases.
 
 When analyzing small genomes (chromsomes <10,000,000 bases), it may be beneficial to increase the sampling rate to 3 or 4.  CNV detection may be unreliable for chromsomes <1,000,000 bases.
 
@@ -130,6 +125,7 @@ When analyzing small genomes (chromsomes <10,000,000 bases), it may be beneficia
 
 If longest chromosome is longer than 'Chromosome maximum length', increase 'Chromosome maximum length', although this will increase the RAM memory needed to run GROM.
 
+`-C Chromosome minimum length [default=1000000]`
 
 `-D Dinucleotide repeat minimum length [default=20]`
 
@@ -156,7 +152,7 @@ Only affects CNV detection.  Read coverage greater than 'Duplication coverage th
 Turn on duplicate read filtering. [default=OFF]
 
 
-`-S`
+`-S` 
 
 Turns off split-read analysis. [default=ON]
 
@@ -250,4 +246,17 @@ Split-reads with gap or overlap greater than the threshold are not considered ev
 `-z Minimum split-read mapped length (each split) [default=30]`
 
 Split-reads less than the minimum may not support variants based on the split.  Split-reads may still support variants based on discordant pairs (paired-reads).
+
+
+`-I Ignore lower/upper case difference in contig names in reference and BAM file. [Not ignored by default]`
+
+Use if case of contig names in reference differs from that in BAM file.
+
+
+`-O Specify sample ID to be used in VCF header. ID will be obtained from BAM file name if not provided.`
+
+`-f Tabular text output [default=OFF]`
+
+VCF is the default output format.
+
 
