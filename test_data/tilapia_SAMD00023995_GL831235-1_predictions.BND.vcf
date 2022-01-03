@@ -1,0 +1,18 @@
+##fileformat=VCFv4.2
+##fileDate=2018119
+##source=GROM, Version 1.0.2
+##reference=/lustre/scratch/jimkell/GROM-master110918a_nc/test_data/oreNil2_GL831235-1.fa
+##CONTIG=ID=GL831235-1>
+##ALT=<ID=BND,Description="Breakend replacement">
+##INFO=<ID=SVTYPE,Number=1,Type=String,Description="Type of structural variant">
+##INFO=<ID=MATEID,Number=1,Type=String,Description="ID column entry of mate">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=SPR,Number=1,Type=Float,Description="Probability of start breakpoint evidence occurring by chance">
+##FORMAT=<ID=SEV,Number=1,Type=Integer,Description="Evidence supporting variant at start breakpoint">
+##FORMAT=<ID=SRD,Number=1,Type=Integer,Description="Physical read depth at start breakpoint">
+##FORMAT=<ID=SCO,Number=1,Type=Integer,Description="Concordant pairs at start breakpoint">
+##FORMAT=<ID=SOT,Number=1,Type=Integer,Description="Count of distinct SVs with evidence at start breakpoint">
+##FORMAT=<ID=SFR,Number=1,Type=Integer,Description="Position of first read supporting start breakpoint">
+##FORMAT=<ID=SLR,Number=1,Type=Integer,Description="Position of last read supporting start breakpoint">
+##FORMAT=<ID=SHPR,Number=1,Type=Float,Description="Unknown">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	tilapia_SAMD00023995_GL831235-1
