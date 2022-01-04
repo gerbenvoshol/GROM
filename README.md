@@ -1,5 +1,5 @@
 # GROM
-Version 1.0.3
+Version 1.0.4
 
 ## Description, Installation, and Usage
 

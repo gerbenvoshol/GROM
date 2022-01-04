@@ -877,7 +877,7 @@ void add_one_chromosome_result(int chr, char *chr_name, char *results_name, long
 
 int g_other_types_len = 14;
 char g_other_types[14][20] = {"EMPTY", "DEL FOR", "DEL REV", "DUP FOR", "DUP REV", "INV FOR START", "INV REV START", "INV FOR END", "INV REV END", "CTX FOR", "CTX REV", "INS INDEL", "DEL INDEL FOR", "DEL INDEL REV"};
-char *g_version_name = "GROM, Version 1.0.3\n";
+char *g_version_name = "GROM, Version 1.0.4\n";
 
 int cmpfunc_2dm (const void * a, const void * b);
 int cmpfunc_2d (const void * a, const void * b);
@@ -10875,10 +10875,10 @@ void count_discordant_pairs(samfile_t *cdp_bam_file, char *cdp_bam_file_name, ch
 				if (cdp_snv_start_binom_cdf_list[cdp_a_loop] != 0)
 				{
 					int qual_entry = (int) -10 * log10(cdp_snv_start_binom_cdf_list[cdp_a_loop]);
-					fprintf(cdp_results_file_snv, "%s\t%d\t.\t%c\t%c\t%d\t.\t.\tGT:PR:AF:A:C:G:T:AL:CL:GL:TL:BQ:MQ:PIR:FS\t%s:%.2e:%.2e:%d:%d:%d:%d:%d:%d:%d:%d:%.2f:%.2f:%.2f:%.2f\n", cdp_chr_name, cdp_snv_pos_list[cdp_a_loop] + 1, cdp_chr_fasta[cdp_snv_pos_list[cdp_a_loop]], g_dna[cdp_snv_base_list[cdp_a_loop]], qual_entry, cdp_snv_gt_string, cdp_snv_start_binom_cdf_list[cdp_a_loop], cdp_snv_ratio_list[cdp_a_loop], cdp_snv_list[0][cdp_a_loop], cdp_snv_list[1][cdp_a_loop], cdp_snv_list[2][cdp_a_loop], cdp_snv_list[3][cdp_a_loop], cdp_snv_lowmq_list[0][cdp_a_loop], cdp_snv_lowmq_list[1][cdp_a_loop], cdp_snv_lowmq_list[2][cdp_a_loop], cdp_snv_lowmq_list[3][cdp_a_loop], (double)cdp_snv_bq_all_list[cdp_a_loop]/(double)cdp_snv_read_count_all_list[cdp_a_loop], (double)cdp_snv_mq_all_list[cdp_a_loop]/(double)cdp_snv_read_count_all_list[cdp_a_loop], (double)cdp_snv_pos_in_read_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop]/(double)cdp_snv_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop], (double)cdp_snv_fstrand_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop]/(double)cdp_snv_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop]);
+					fprintf(cdp_results_file_snv, "%s\t%d\t.\t%c\t%c\t%d\t.\t.\tGT:PR:AF:AMQ:CMQ:GMQ:TMQ:ALMQ:CLMQ:GLMQ:TLMQ:BQ:MQ:PIR:FS\t%s:%.2e:%.2e:%d:%d:%d:%d:%d:%d:%d:%d:%.2f:%.2f:%.2f:%.2f\n", cdp_chr_name, cdp_snv_pos_list[cdp_a_loop] + 1, cdp_chr_fasta[cdp_snv_pos_list[cdp_a_loop]], g_dna[cdp_snv_base_list[cdp_a_loop]], qual_entry, cdp_snv_gt_string, cdp_snv_start_binom_cdf_list[cdp_a_loop], cdp_snv_ratio_list[cdp_a_loop], cdp_snv_list[0][cdp_a_loop], cdp_snv_list[1][cdp_a_loop], cdp_snv_list[2][cdp_a_loop], cdp_snv_list[3][cdp_a_loop], cdp_snv_lowmq_list[0][cdp_a_loop], cdp_snv_lowmq_list[1][cdp_a_loop], cdp_snv_lowmq_list[2][cdp_a_loop], cdp_snv_lowmq_list[3][cdp_a_loop], (double)cdp_snv_bq_all_list[cdp_a_loop]/(double)cdp_snv_read_count_all_list[cdp_a_loop], (double)cdp_snv_mq_all_list[cdp_a_loop]/(double)cdp_snv_read_count_all_list[cdp_a_loop], (double)cdp_snv_pos_in_read_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop]/(double)cdp_snv_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop], (double)cdp_snv_fstrand_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop]/(double)cdp_snv_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop]);
 
 				} else {
-					fprintf(cdp_results_file_snv, "%s\t%d\t.\t%c\t%c\t%s\t.\t.\tGT:PR:AF:A:C:G:T:AL:CL:GL:TL:BQ:MQ:PIR:FS\t%s:%.2e:%.2e:%d:%d:%d:%d:%d:%d:%d:%d:%.2f:%.2f:%.2f:%.2f\n", cdp_chr_name, cdp_snv_pos_list[cdp_a_loop] + 1, cdp_chr_fasta[cdp_snv_pos_list[cdp_a_loop]], g_dna[cdp_snv_base_list[cdp_a_loop]], infinity_qual_entry, cdp_snv_gt_string, cdp_snv_start_binom_cdf_list[cdp_a_loop], cdp_snv_ratio_list[cdp_a_loop], cdp_snv_list[0][cdp_a_loop], cdp_snv_list[1][cdp_a_loop], cdp_snv_list[2][cdp_a_loop], cdp_snv_list[3][cdp_a_loop], cdp_snv_lowmq_list[0][cdp_a_loop], cdp_snv_lowmq_list[1][cdp_a_loop], cdp_snv_lowmq_list[2][cdp_a_loop], cdp_snv_lowmq_list[3][cdp_a_loop], (double)cdp_snv_bq_all_list[cdp_a_loop]/(double)cdp_snv_read_count_all_list[cdp_a_loop], (double)cdp_snv_mq_all_list[cdp_a_loop]/(double)cdp_snv_read_count_all_list[cdp_a_loop], (double)cdp_snv_pos_in_read_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop]/(double)cdp_snv_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop], (double)cdp_snv_fstrand_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop]/(double)cdp_snv_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop]);
+					fprintf(cdp_results_file_snv, "%s\t%d\t.\t%c\t%c\t%s\t.\t.\tGT:PR:AF:AMQ:CMQ:GMQ:TMQ:ALMQ:CLMQ:GLMQ:TLMQ:BQ:MQ:PIR:FS\t%s:%.2e:%.2e:%d:%d:%d:%d:%d:%d:%d:%d:%.2f:%.2f:%.2f:%.2f\n", cdp_chr_name, cdp_snv_pos_list[cdp_a_loop] + 1, cdp_chr_fasta[cdp_snv_pos_list[cdp_a_loop]], g_dna[cdp_snv_base_list[cdp_a_loop]], infinity_qual_entry, cdp_snv_gt_string, cdp_snv_start_binom_cdf_list[cdp_a_loop], cdp_snv_ratio_list[cdp_a_loop], cdp_snv_list[0][cdp_a_loop], cdp_snv_list[1][cdp_a_loop], cdp_snv_list[2][cdp_a_loop], cdp_snv_list[3][cdp_a_loop], cdp_snv_lowmq_list[0][cdp_a_loop], cdp_snv_lowmq_list[1][cdp_a_loop], cdp_snv_lowmq_list[2][cdp_a_loop], cdp_snv_lowmq_list[3][cdp_a_loop], (double)cdp_snv_bq_all_list[cdp_a_loop]/(double)cdp_snv_read_count_all_list[cdp_a_loop], (double)cdp_snv_mq_all_list[cdp_a_loop]/(double)cdp_snv_read_count_all_list[cdp_a_loop], (double)cdp_snv_pos_in_read_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop]/(double)cdp_snv_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop], (double)cdp_snv_fstrand_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop]/(double)cdp_snv_list[cdp_snv_base_list[cdp_a_loop]][cdp_a_loop]);
 				}
 			  }
 			}
@@ -12977,7 +12977,7 @@ void count_discordant_pairs(samfile_t *cdp_bam_file, char *cdp_bam_file_name, ch
 			  }
 
 
-			  fprintf(cdp_results_file, "%s\t%d\t.\t%c\t%c\t.\t.\tGT:PR:AF:A:C:G:T:AL:CL:GL:TL:BQ:MQ:PIR:FS:OL:IN:SC:PRT:PRTL:SCA:SCC:SCG:SCT\t%s:%e:%e:%d:%d:%d:%d:%d:%d:%d:%d:%.2f:%.2f:%.2f:%.2f:%d:%d:%d:%e:%e:%d:%d:%d:%d\n", cdp_chr_name, cdp_tumor_start[cdp_tumor_loop] + 1, cdp_chr_fasta[cdp_tumor_start[cdp_tumor_loop]], cdp_tumor_snv_base[cdp_tumor_loop], cdp_snv_gt_string, cdp_binom_cdf, cdp_temp_snv_ratio, cdp_one_base_snv[0][cdp_one_base_index], cdp_one_base_snv[1][cdp_one_base_index], cdp_one_base_snv[2][cdp_one_base_index], cdp_one_base_snv[3][cdp_one_base_index], cdp_one_base_snv_lowmq[0][cdp_one_base_index], cdp_one_base_snv_lowmq[1][cdp_one_base_index], cdp_one_base_snv_lowmq[2][cdp_one_base_index], cdp_one_base_snv_lowmq[3][cdp_one_base_index], (double)cdp_one_base_bq_all[cdp_one_base_index]/(double)cdp_one_base_read_count_all[cdp_one_base_index], (double)cdp_one_base_mq_all[cdp_one_base_index]/(double)cdp_one_base_read_count_all[cdp_one_base_index], cdp_temp_snv_pir, cdp_temp_snv_fs, cdp_temp_other_len, cdp_snv_indel_i_count + cdp_snv_indel_d_f_count + cdp_snv_indel_d_r_count, cdp_max_sc, 0.0, 0.0, 0, 0, 0, 0);
+			  fprintf(cdp_results_file, "%s\t%d\t.\t%c\t%c\t.\t.\tGT:PR:AF:AMQ:CMQ:GMQ:TMQ:ALMQ:CLMQ:GLMQ:TLMQ:BQ:MQ:PIR:FS:OL:IN:SC:PRT:PRTL:SCA:SCC:SCG:SCT\t%s:%e:%e:%d:%d:%d:%d:%d:%d:%d:%d:%.2f:%.2f:%.2f:%.2f:%d:%d:%d:%e:%e:%d:%d:%d:%d\n", cdp_chr_name, cdp_tumor_start[cdp_tumor_loop] + 1, cdp_chr_fasta[cdp_tumor_start[cdp_tumor_loop]], cdp_tumor_snv_base[cdp_tumor_loop], cdp_snv_gt_string, cdp_binom_cdf, cdp_temp_snv_ratio, cdp_one_base_snv[0][cdp_one_base_index], cdp_one_base_snv[1][cdp_one_base_index], cdp_one_base_snv[2][cdp_one_base_index], cdp_one_base_snv[3][cdp_one_base_index], cdp_one_base_snv_lowmq[0][cdp_one_base_index], cdp_one_base_snv_lowmq[1][cdp_one_base_index], cdp_one_base_snv_lowmq[2][cdp_one_base_index], cdp_one_base_snv_lowmq[3][cdp_one_base_index], (double)cdp_one_base_bq_all[cdp_one_base_index]/(double)cdp_one_base_read_count_all[cdp_one_base_index], (double)cdp_one_base_mq_all[cdp_one_base_index]/(double)cdp_one_base_read_count_all[cdp_one_base_index], cdp_temp_snv_pir, cdp_temp_snv_fs, cdp_temp_other_len, cdp_snv_indel_i_count + cdp_snv_indel_d_f_count + cdp_snv_indel_d_r_count, cdp_max_sc, 0.0, 0.0, 0, 0, 0, 0);
 			}
 
 		      }
@@ -14373,10 +14373,10 @@ void count_discordant_pairs(samfile_t *cdp_bam_file, char *cdp_bam_file_name, ch
 		if (cdp_snv_start_binom_cdf_list[cdp_a_loop] != 0)
 		{
 			int qual_entry = (int) -10 * log10(cdp_snv_start_binom_cdf_list[cdp_a_loop]);
-			fprintf(cdp_results_file_snv, "%s\t%d\t.\t%c\t%c\t%d\t.\t.\tGT:PR:AF:A:C:G:T:AL:CL:GL:TL:BQ:MQ:PIR:FS\t%s:%.2e:%.2e", cdp_chr_name, cdp_snv_pos_list[cdp_a_loop] + 1, cdp_chr_fasta[cdp_snv_pos_list[cdp_a_loop]], g_dna[cdp_snv_base_list[cdp_a_loop]], qual_entry, cdp_snv_gt_string, cdp_snv_start_binom_cdf_list[cdp_a_loop], cdp_snv_ratio_list[cdp_a_loop]);
+			fprintf(cdp_results_file_snv, "%s\t%d\t.\t%c\t%c\t%d\t.\t.\tGT:PR:AF:AMQ:CMQ:GMQ:TMQ:ALMQ:CLMQ:GLMQ:TLMQ:BQ:MQ:PIR:FS\t%s:%.2e:%.2e", cdp_chr_name, cdp_snv_pos_list[cdp_a_loop] + 1, cdp_chr_fasta[cdp_snv_pos_list[cdp_a_loop]], g_dna[cdp_snv_base_list[cdp_a_loop]], qual_entry, cdp_snv_gt_string, cdp_snv_start_binom_cdf_list[cdp_a_loop], cdp_snv_ratio_list[cdp_a_loop]);
 		
 		} else {
-			fprintf(cdp_results_file_snv, "%s\t%d\t.\t%c\t%c\t%s\t.\t.\tGT:PR:AF:A:C:G:T:AL:CL:GL:TL:BQ:MQ:PIR:FS\t%s:%.2e:%.2e", cdp_chr_name, cdp_snv_pos_list[cdp_a_loop] + 1, cdp_chr_fasta[cdp_snv_pos_list[cdp_a_loop]], g_dna[cdp_snv_base_list[cdp_a_loop]], infinity_qual_entry, cdp_snv_gt_string, cdp_snv_start_binom_cdf_list[cdp_a_loop], cdp_snv_ratio_list[cdp_a_loop]);
+			fprintf(cdp_results_file_snv, "%s\t%d\t.\t%c\t%c\t%s\t.\t.\tGT:PR:AF:AMQ:CMQ:GMQ:TMQ:ALMQ:CLMQ:GLMQ:TLMQ:BQ:MQ:PIR:FS\t%s:%.2e:%.2e", cdp_chr_name, cdp_snv_pos_list[cdp_a_loop] + 1, cdp_chr_fasta[cdp_snv_pos_list[cdp_a_loop]], g_dna[cdp_snv_base_list[cdp_a_loop]], infinity_qual_entry, cdp_snv_gt_string, cdp_snv_start_binom_cdf_list[cdp_a_loop], cdp_snv_ratio_list[cdp_a_loop]);
 		}
 
 	    for(cdp_b_loop=0;cdp_b_loop<g_nucleotides;cdp_b_loop++)
@@ -19514,18 +19514,18 @@ void find_disc_svs(char *fds_bam_file_name, FILE *fds_fasta_handle, char *fds_re
 	fprintf(fds_results_file_snv, "##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\">\n");
 	fprintf(fds_results_file_snv, "##FORMAT=<ID=AF,Number=1,Type=Float,Description=\"Allele frequency (high mapping quality reads)\">\n");
 	fprintf(fds_results_file_snv, "##FORMAT=<ID=PR,Number=1,Type=Float,Description=\"Probability of SNV evidence occurring by chance\">\n");
-	fprintf(fds_results_file_snv, "##FORMAT=<ID=A,Number=1,Type=Integer,Description=\"A nucleotides (high mapping quality reads)\">\n");
-	fprintf(fds_results_file_snv, "##FORMAT=<ID=C,Number=1,Type=Integer,Description=\"C nucleotides (high mapping quality reads)\">\n");
-	fprintf(fds_results_file_snv, "##FORMAT=<ID=G,Number=1,Type=Integer,Description=\"G nucleotides (high mapping quality reads)\">\n");
-	fprintf(fds_results_file_snv, "##FORMAT=<ID=T,Number=1,Type=Integer,Description=\"T nucleotides (high mapping quality reads)\">\n");
-	fprintf(fds_results_file_snv, "##FORMAT=<ID=AL,Number=1,Type=Integer,Description=\"A nucleotides (low mapping quality reads)\">\n");
-	fprintf(fds_results_file_snv, "##FORMAT=<ID=CL,Number=1,Type=Integer,Description=\"C nucleotides (low mapping quality reads)\">\n");
-	fprintf(fds_results_file_snv, "##FORMAT=<ID=GL,Number=1,Type=Integer,Description=\"G nucleotides (low mapping quality reads)\">\n");
-	fprintf(fds_results_file_snv, "##FORMAT=<ID=TL,Number=1,Type=Integer,Description=\"T nucleotides (low mapping quality reads)\">\n");
+	fprintf(fds_results_file_snv, "##FORMAT=<ID=AMQ,Number=1,Type=Integer,Description=\"A nucleotides (high mapping quality reads)\">\n");
+	fprintf(fds_results_file_snv, "##FORMAT=<ID=CMQ,Number=1,Type=Integer,Description=\"C nucleotides (high mapping quality reads)\">\n");
+	fprintf(fds_results_file_snv, "##FORMAT=<ID=GMQ,Number=1,Type=Integer,Description=\"G nucleotides (high mapping quality reads)\">\n");
+	fprintf(fds_results_file_snv, "##FORMAT=<ID=TMQ,Number=1,Type=Integer,Description=\"T nucleotides (high mapping quality reads)\">\n");
+	fprintf(fds_results_file_snv, "##FORMAT=<ID=ALMQ,Number=1,Type=Integer,Description=\"A nucleotides (low mapping quality reads)\">\n");
+	fprintf(fds_results_file_snv, "##FORMAT=<ID=CLMQ,Number=1,Type=Integer,Description=\"C nucleotides (low mapping quality reads)\">\n");
+	fprintf(fds_results_file_snv, "##FORMAT=<ID=GLMQ,Number=1,Type=Integer,Description=\"G nucleotides (low mapping quality reads)\">\n");
+	fprintf(fds_results_file_snv, "##FORMAT=<ID=TLMQ,Number=1,Type=Integer,Description=\"T nucleotides (low mapping quality reads)\">\n");
 	fprintf(fds_results_file_snv, "##FORMAT=<ID=BQ,Number=1,Type=Float,Description=\"Average base quality (all reads)\">\n");
 	fprintf(fds_results_file_snv, "##FORMAT=<ID=MQ,Number=1,Type=Float,Description=\"Average mapping quality (all reads)\">\n");
 	fprintf(fds_results_file_snv, "##FORMAT=<ID=PIR,Number=1,Type=Float,Description=\"Average distance of SNV from DNA fragment end\">\n");
-	fprintf(fds_results_file_snv, "##FORMAT=<ID=FS,Number=1,Type=Integer,Description=\"SNV reads mapped to forward strand\">\n");
+	fprintf(fds_results_file_snv, "##FORMAT=<ID=FS,Number=1,Type=Float,Description=\"Fraction of SNV reads mapped to forward strand\">\n");
 
 
 	fprintf(fds_results_file_ind, "##INFO=<ID=TYPE,Number=1,Type=String,Description=\"Type of variant\">\n");
